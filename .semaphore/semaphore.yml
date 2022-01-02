@@ -1,27 +1,26 @@
 version: v1.0
-name: Initial Pipeline
+name: Semaphore JavaScript Example Pipeline
 agent:
   machine:
     type: e1-standard-2
-    os_image: ubuntu2004
+    os_image: ubuntu1804
 blocks:
-  - name: 'Block #1'
-    dependencies: []
+  - name: Install dependencies
     task:
-      jobs:
-        - name: 'Job #1'
-          commands: []
-  - name: Build
-    dependencies:
-      - 'Block #1'
-    task:
-      jobs:
-        - name: Bazel Build Install Packages
-          commands:
-            - npm install
+      env_vars:
+        - name: NODE_ENV
+          value: test
+        - name: CI
+          value: 'true'
       prologue:
         commands:
           - checkout
           - nvm use
           - node --version
           - npm --version
+      jobs:
+        - name: npm install and cache
+          commands:
+            - 'cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master'
+            - npm install
+            - cache store client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json) node_modules
