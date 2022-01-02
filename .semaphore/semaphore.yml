@@ -11,17 +11,11 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands: []
-  - name: Tests
+  - name: Build
     dependencies:
       - 'Block #1'
     task:
-      prologue:
-        commands:
-          - checkout
       jobs:
-        - name: Unit Tests
+        - name: Bazel Build
           commands:
-            - echo 'running unit tests'
-        - name: Integration Tests
-          commands:
-            - echo 'running integration tests'
+            - npm run build
