@@ -5,6 +5,22 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
+  - name: Install Bazel
+    task:
+      env_vars:
+        - name: NODE_ENV
+          value: test
+        - name: CI
+          value: 'true'
+      prologue:
+        commands:
+          - checkout
+          - node --version
+          - npm --version
+      jobs:
+        - name: Install Bazel
+          commands:
+            - sudo apt update && sudo apt install bazel-4.1.0
   - name: Install dependencies
     task:
       env_vars:
