@@ -23,6 +23,19 @@ blocks:
             - 'cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master'
             - npm install
             - cache store client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json) node_modules
-        - name: run build
+  - name: Run Build
+    task:
+      env_vars:
+        - name: NODE_ENV
+          value: test
+        - name: CI
+          value: 'true'
+      prologue:
+        commands:
+          - checkout
+          - node --version
+          - npm --version
+      jobs:
+        - name: npm build
           commands:
             - npm run build
