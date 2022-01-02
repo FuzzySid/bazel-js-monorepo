@@ -18,4 +18,5 @@ blocks:
       jobs:
         - name: Bazel Build
           commands:
+            - cd ..
             - npm run build
