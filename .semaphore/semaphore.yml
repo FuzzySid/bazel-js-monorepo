@@ -35,11 +35,9 @@ blocks:
           - node --version
           - npm --version
       jobs:
-        - name: npm install and cache
+        - name: npm install
           commands:
-            - 'cache restore client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json),client-node-modules-$SEMAPHORE_GIT_BRANCH,client-node-modules-master'
             - npm install
-            - cache store client-node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum package-lock.json) node_modules
   - name: Run Build
     task:
       env_vars:
