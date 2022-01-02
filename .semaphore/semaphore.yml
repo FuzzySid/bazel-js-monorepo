@@ -16,7 +16,12 @@ blocks:
       - 'Block #1'
     task:
       jobs:
-        - name: Bazel Build
+        - name: Bazel Build Install Packages
           commands:
-            - cd ..
-            - npm run build
+            - npm install
+      prologue:
+        commands:
+          - checkout
+          - nvm use
+          - node --version
+          - npm --version
