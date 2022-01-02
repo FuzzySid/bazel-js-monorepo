@@ -20,10 +20,8 @@ blocks:
       jobs:
         - name: Install Bazel
           commands:
-            - sudo apt update && sudo apt install bazel-4.1.0
+            - npm install -g @bazel/bazelisk
             - bazel --version
-            - cd /user/bin
-            - ls
   - name: Install dependencies
     task:
       env_vars:
