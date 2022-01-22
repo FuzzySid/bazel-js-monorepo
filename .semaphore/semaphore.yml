@@ -5,7 +5,7 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Install Bazel
+  - name: Setup Bazel
     task:
       env_vars:
         - name: NODE_ENV
@@ -18,11 +18,11 @@ blocks:
           - node --version
           - npm --version
       jobs:
-        - name: Install Bazel
+        - name: Install Bazel and Check Version
           commands:
             - npm install -g @bazel/bazelisk
             - bazel --version
-  - name: Install dependencies
+  - name: Install Dependencies
     task:
       env_vars:
         - name: NODE_ENV
@@ -35,10 +35,10 @@ blocks:
           - node --version
           - npm --version
       jobs:
-        - name: npm install
+        - name: Install Dependencies
           commands:
             - npm install
-  - name: Run Build
+  - name: Build Bazel
     task:
       env_vars:
         - name: NODE_ENV
@@ -51,6 +51,6 @@ blocks:
           - node --version
           - npm --version
       jobs:
-        - name: npm build
+        - name: Build Project
           commands:
             - npm run build
