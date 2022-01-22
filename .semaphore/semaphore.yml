@@ -1,0 +1,56 @@
+version: v1.0
+name: JavaScript Monorepo Bazel Build
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Setup Bazel
+    task:
+      env_vars:
+        - name: NODE_ENV
+          value: test
+        - name: CI
+          value: 'true'
+      prologue:
+        commands:
+          - checkout
+          - node --version
+          - npm --version
+      jobs:
+        - name: Install Bazel and Check Version
+          commands:
+            - npm install -g @bazel/bazelisk
+            - bazel --version
+  - name: Install Dependencies
+    task:
+      env_vars:
+        - name: NODE_ENV
+          value: test
+        - name: CI
+          value: 'true'
+      prologue:
+        commands:
+          - checkout
+          - node --version
+          - npm --version
+      jobs:
+        - name: Install Dependencies
+          commands:
+            - npm install
+  - name: Build Bazel
+    task:
+      env_vars:
+        - name: NODE_ENV
+          value: test
+        - name: CI
+          value: 'true'
+      prologue:
+        commands:
+          - checkout
+          - node --version
+          - npm --version
+      jobs:
+        - name: Build Project
+          commands:
+            - npm run build
