@@ -8,5 +8,6 @@ class User{
     }
 }
 
+//Creating a new user instance with name 'FuzzySid'
 const user=new User("FuzzySid")
 user.uppercaseName();
